@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 		Update();
 		Render();
 
-		// SDL_Delay(30);	// 30 밀리세컨드 기다린다.
+		//SDL_Delay(30);	// 30 밀리세컨드 기다린다.
 		g_last_time_ms = cur_time_ms;
 	}
 
