@@ -2,7 +2,7 @@
 #include <windows.h>
 #include "SDL_image.h"
 
-int g_input;
+int g_input;	// g_는 전역변수의 의미
 int g_elapsed_time_ms;
 
 SDL_Rect g_char_pos;
@@ -22,10 +22,12 @@ void InitGame() {
 
 	g_elapsed_time_ms = 0;
 
-	SDL_Surface* ryu_sheet_surface = IMG_Load("../../Resources/60224.png");
-	g_ryu_sheet_texture = SDL_CreateTextureFromSurface(g_renderer, ryu_sheet_surface);
-	SDL_FreeSurface(ryu_sheet_surface);
+	// 이미지 추가 준비단계
+	SDL_Surface* ryu_sheet_surface = IMG_Load("../../Resources/60224.png");	// structure의 포인터 가져오기
+	g_ryu_sheet_texture = SDL_CreateTextureFromSurface(g_renderer, ryu_sheet_surface);	//GPU로 옮기기 (GPU메모리로 복사)
+	SDL_FreeSurface(ryu_sheet_surface);	// (GPU에 옮겼으니까)CPU의 Surface에 할당된 메모리 해제
 
+	// 캐릭터의 위치값
 	g_source_rect.x = 171;
 	g_source_rect.y = 1647;
 	g_source_rect.w = 67;
@@ -33,7 +35,7 @@ void InitGame() {
 
 	g_destination_rect.x = 300;
 	g_destination_rect.y = 200;
-	g_destination_rect.w = g_source_rect.w;
+	g_destination_rect.w = g_source_rect.w;	//잘라오는 크기랑 똑같이
 	g_destination_rect.h = g_source_rect.h;
 }
 
@@ -99,12 +101,12 @@ void Render() {
 	SDL_RenderFillRect(g_renderer, &g_char_pos);
 
 	// g_ryu_sheet_texture
-	SDL_RenderCopy(g_renderer, g_ryu_sheet_texture, &g_source_rect, &g_destination_rect);
+	SDL_RenderCopy(g_renderer, g_ryu_sheet_texture, &g_source_rect, &g_destination_rect);	// Texture로부터 복사해서 표시(잘라올 곳, 붙일 곳) / 백버퍼에 표시
 
 
-	SDL_RenderPresent(g_renderer);
+	SDL_RenderPresent(g_renderer);	// 백버퍼-프론트버퍼 교체
 }
 
-void ClearGame() {
+void ClearGame() {	// 게임 종료시 메모리 해제
 	SDL_DestroyTexture(g_ryu_sheet_texture);
 }

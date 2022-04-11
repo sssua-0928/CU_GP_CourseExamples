@@ -22,7 +22,7 @@ void InitGame() {
 	g_flag_running = true;
 
 	// BG
-	SDL_Surface* bg_surface = IMG_Load("../../Resources/ddd.jpg");
+	SDL_Surface* bg_surface = IMG_Load("../../Resources/background.jpg");
 	g_bg_texture = SDL_CreateTextureFromSurface(g_renderer, bg_surface);
 	SDL_FreeSurface(bg_surface);
 
@@ -130,8 +130,8 @@ void Render() {
 
 	// 왼쪽 류
 	SDL_Rect r = g_ryu_destination_rect;
-	r.w = g_oryugen_source_rects[g_current_oryugen_id].w * 2;	// 2배 크게
-	r.h = g_oryugen_source_rects[g_current_oryugen_id].h * 2;	// 2배 크게
+	r.w = g_oryugen_source_rects[g_current_oryugen_id].w * 2;	// 가로 2배 크게
+	r.h = g_oryugen_source_rects[g_current_oryugen_id].h * 2;	// 세로 2배 크게
 
 	SDL_RenderCopy(g_renderer, 
 		g_ryu_sheet_texture, 

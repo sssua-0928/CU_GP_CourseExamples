@@ -1,17 +1,13 @@
-#include "Drawing_GameFunc.h"
+#include "GameFunc.h"
 
-SDL_Window* g_window;
-SDL_Renderer* g_renderer;
 bool g_flag_running;
 Uint32 g_last_time_ms;
 
 int main(int argc, char* argv[]) {
 
-	// Initializing SDL library
+	// Initializing SDL library : SDL라이브러리에서 세팅되어야하는 기본변수가 세팅됨
 	SDL_Init(SDL_INIT_EVERYTHING);
-	g_window = SDL_CreateWindow("First Window", 100, 100, 800, 600, 0);
-	g_renderer = SDL_CreateRenderer(g_window, -1, 0);
-
+	SDL_Window* window = SDL_CreateWindow("First Window", 100, 100, 800, 600, 0);	// X,Y,W(가로),Z(세로), Flag(옵션:윈도우형태)
 	InitGame();
 
 	g_last_time_ms = SDL_GetTicks();
@@ -27,14 +23,14 @@ int main(int argc, char* argv[]) {
 		Update();
 		Render();
 
+		//SDL_Delay(30);	// 30 밀리세컨드 기다린다.
 		g_last_time_ms = cur_time_ms;
 	}
 
-	SDL_DestroyRenderer(g_renderer);
-	SDL_DestroyWindow(g_window);
-
-	ClearGame();	// 모든 메모리 해제
+	ClearGame();
+	SDL_DestroyWindow(window);	// 프로그램 메모리 부족을 방지해서 꼭 필요 (동적할당 메모리 삭제)
 	SDL_Quit();
 
 	return 0;
 }
+

@@ -1,9 +1,10 @@
-#include "Drawing_GameFunc.h"
+#include "DrawingTechniques_GameFunc.h"
 
 SDL_Window* g_window;
 SDL_Renderer* g_renderer;
 bool g_flag_running;
 Uint32 g_last_time_ms;
+Uint32 g_frame_per_sec = 30;
 
 int main(int argc, char* argv[]) {
 
@@ -20,7 +21,7 @@ int main(int argc, char* argv[]) {
 
 		Uint32 cur_time_ms = SDL_GetTicks();
 
-		if (cur_time_ms - g_last_time_ms < 33)
+		if (cur_time_ms - g_last_time_ms < (1000/ g_frame_per_sec) )
 			continue;
 
 		HandleEvents();
@@ -33,8 +34,7 @@ int main(int argc, char* argv[]) {
 	SDL_DestroyRenderer(g_renderer);
 	SDL_DestroyWindow(g_window);
 
-	ClearGame();	// 모든 메모리 해제
-	SDL_Quit();
+	ClearGame();
 
 	return 0;
 }
