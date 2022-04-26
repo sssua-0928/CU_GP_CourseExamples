@@ -1,5 +1,8 @@
+#include "SDL.h"
+#include <iostream>
 #include "SoundTest_GameFunc.h"
-
+#include "SDL_mixer.h"
+#include "SDL_ttf.h"
 
 SDL_Window* g_window;
 SDL_Renderer* g_renderer;
